@@ -1,17 +1,20 @@
-require_relative 'nameable'
+require_relative 'nameable', 'rental'
 
 class Person < Nameable
+  # has_many: rentals
+
   def initialize(age, name = 'Unknown', parent_permission: true)
     super()
     @id = Random.rand(1..1000)
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   # Getters & Setters
   attr_reader :id
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rentals
 
   def correct_name
     @name
@@ -28,5 +31,9 @@ class Person < Nameable
     else
       false
     end
+  end
+
+  def add_rental(book, date)
+    Rental.new(date, book, self)
   end
 end

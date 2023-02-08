@@ -14,7 +14,7 @@ class Person < Nameable
 
   # Getters & Setters
   attr_reader :id
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rentals
 
   def correct_name
     @name

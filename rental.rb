@@ -6,11 +6,8 @@ class Rental
     @person = person
     @book = book
 
-    # person.rentals << self
-    person.rentals.push(self) unless person.rentals.include?(self)
-
-    # book.rentals << self
-    book.rentals.push(self) unless book.rentals.include?(self)
+    person.rentals << self
+    book.rentals << self
   end
 
   attr_accessor :date, :person, :book

@@ -1,12 +1,15 @@
 require_relative 'nameable'
 
 class Person < Nameable
+  # has_many: rentals
+
   def initialize(age, name = 'Unknown', parent_permission: true)
     super()
     @id = Random.rand(1..1000)
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   # Getters & Setters
@@ -28,5 +31,11 @@ class Person < Nameable
     else
       false
     end
+  end
+
+  def add_rental(rental)
+    # @rentals << rental
+    @rentals.push(rental) unless @rentals.include?(rental)
+    rental.person = self
   end
 end

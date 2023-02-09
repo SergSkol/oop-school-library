@@ -1,3 +1,6 @@
+require_relative 'person'
+require_relative 'book'
+
 class Rental
   # belongs_to: book, person
 

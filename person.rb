@@ -1,4 +1,5 @@
-require_relative 'nameable', 'rental'
+require_relative 'nameable'
+require_relative 'rental'
 
 class Person < Nameable
   # has_many: rentals

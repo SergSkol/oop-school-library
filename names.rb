@@ -10,6 +10,6 @@ capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
 capitalized_trimmed_person.correct_name
 
 # print it out
-p person.correct_name
-p capitalized_person.correct_name
-p capitalized_trimmed_person.correct_name
+print person.correct_name
+print capitalized_person.correct_name
+print capitalized_trimmed_person.correct_name

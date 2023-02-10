@@ -65,7 +65,7 @@ class App
     @books.each_with_index do |e, index|
       puts "#{index}) Title: #{e.title}, Author: #{e.author}"
     end
-    book_number = gets.chomp.to_i
+    book_number = gets.chomp
 
     puts 'Select a person from the following list by number (not id)'
     @people.each_with_index do |e, index|

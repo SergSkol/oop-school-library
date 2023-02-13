@@ -12,8 +12,12 @@ class App
   end
 
   def list_all_books
-    @books.each do |e|
-      puts "Title: #{e.title}, Author: #{e.author}"
+    if @books.empty?
+      puts 'There are no books'
+    else
+      @books.each do |e|
+        puts "Title: #{e.title}, Author: #{e.author}"
+      end
     end
   end
 

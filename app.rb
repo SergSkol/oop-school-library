@@ -12,8 +12,12 @@ class App
   end
 
   def list_all_books
-    @books.each do |e|
-      puts "Title: #{e.title}, Author: #{e.author}"
+    if @books.empty?
+      puts 'There are no books'
+    else
+      @books.each do |e|
+        puts "Title: #{e.title}, Author: #{e.author}"
+      end
     end
   end
 
@@ -90,40 +94,5 @@ class App
     @rentals.each do |e|
       puts "Date: #{e.date}, Book: #{e.book.title} by #{e.book.author}" if e.person.id == id
     end
-  end
-
-  def menu
-    puts
-    puts 'Please choose an option by entering a number'
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rentals for a given persion id'
-    puts '7 - Exit'
-  end
-
-  def run
-    loop do
-      menu
-      option = gets.chomp.to_i
-      case option
-      when 1
-        list_all_books
-      when 2
-        list_all_people
-      when 3
-        create_person
-      when 4
-        create_book
-      when 5
-        create_rental
-      when 6
-        list_rentals
-      else break
-      end
-    end
-    puts 'Thank you for using this app!'
   end
 end

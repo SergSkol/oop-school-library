@@ -42,5 +42,5 @@ class Main < App
   end
 end
 
-main = Main.new()
+main = Main.new
 main.main

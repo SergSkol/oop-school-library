@@ -42,7 +42,7 @@ class App
     when '1'
       print 'Has parent permission? [Y/N]:'
       parent_permission = gets.chomp.upcase == 'Y'
-      classroom = nil;
+      classroom = nil
       student = Student.new(classroom, age, name, parent_permission, nil)
       @people.push(student)
     when '2'

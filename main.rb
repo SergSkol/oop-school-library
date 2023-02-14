@@ -1,4 +1,5 @@
 require_relative 'app'
+require_relative 'io'
 
 class Main < App
   def menu

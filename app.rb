@@ -3,6 +3,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
+require 'json'
 
 class App
   def initialize
@@ -42,7 +43,8 @@ class App
       print 'Has parent permission? [Y/N]:'
       parent_permission = gets.chomp.upcase == 'Y'
       classroom = Classroom.new('Unknown')
-      @people << Student.new(classroom, age, parent_permission, name)
+      student = Student.new(classroom, age, parent_permission, name)
+      @people.push(student)
     when '2'
       print 'Specialization:'
       specialization = gets.chomp
@@ -94,5 +96,45 @@ class App
     @rentals.each do |e|
       puts "Date: #{e.date}, Book: #{e.book.title} by #{e.book.author}" if e.person.id == id
     end
+  end
+
+  # Save and Load operations
+  def save_data
+    save_books
+    # save_people
+    # save_rentals
+  end
+
+  def load_data
+    @books = load_books || []
+    @people = load_people || []
+    @rentals = load_rentals || []
+  end
+
+  def save_books
+    str = JSON.generate(@books)
+
+    p str
+    File.write('./data/books.json', str)
+  end
+
+  def load_books
+    JSON.parse(File.read('./data/books.json')) if File.exist?('./data/books.json')
+  end
+
+  def save_people
+    File.write('./data/people.json', JSON.generate(@people))
+  end
+
+  def load_people
+    JSON.parse(File.read('./data/people.json')) if File.exist?('./data/people.json')
+  end
+
+  def save_rentals
+    File.write('./data/rentals.json', JSON.generate(@rentals))
+  end
+
+  def load_rentals
+    JSON.parse(File.read('./data/rentals.json')) if File.exist?('./data/rentals.json')
   end
 end

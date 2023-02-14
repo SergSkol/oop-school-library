@@ -1,5 +1,4 @@
 require_relative 'app'
-require_relative 'io'
 
 class Main < App
   def menu
@@ -10,7 +9,7 @@ class Main < App
     puts '3 - Create a person'
     puts '4 - Create a book'
     puts '5 - Create a rental'
-    puts '6 - List all rentals for a given persion id'
+    puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
   end
 
@@ -37,9 +36,11 @@ class Main < App
   end
 
   def main
+    load_data
     puts 'Welcome to School Library App!'
     run
     puts 'Thank you for using this app!'
+    save_data
   end
 end
 

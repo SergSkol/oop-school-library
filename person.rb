@@ -4,12 +4,15 @@ require_relative 'rental'
 class Person < Nameable
   # has_many: rentals
 
-  def initialize(age, name = 'Unknown', parent_permission: true)
+  def initialize(age, name = 'Unknown', id = nil)
     super()
-    @id = Random.rand(1..1000)
+    @id = if id.nil?
+            Random.rand(1..1000)
+          else
+            id
+          end
     @name = name
     @age = age
-    @parent_permission = parent_permission
     @rentals = []
   end
 

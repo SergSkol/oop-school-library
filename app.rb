@@ -42,7 +42,7 @@ class App
     when '1'
       print 'Has parent permission? [Y/N]:'
       parent_permission = gets.chomp.upcase == 'Y'
-      classroom = nil; # Classroom.new('Unknown')
+      classroom = nil;
       student = Student.new(classroom, age, name, parent_permission, nil)
       @people.push(student)
     when '2'
@@ -114,9 +114,6 @@ class App
   end
 
   def save_books
-    # File.write('./data/books.json', JSON.generate(@books))
-    # File.write('./data/books.json', Marshal.dump(@books))
-
     arr = []
     @books.each do |e|
       arr.push(e.receive_item)
@@ -125,9 +122,6 @@ class App
   end
 
   def load_books
-    # JSON.parse(File.read('./data/books.json')) if File.exist?('./data/books.json')
-    # Marshal.load(File.read('./data/books.json')) if File.exist?('./data/books.json')
-
     return unless File.exist?('./data/books.json')
 
     JSON.parse(File.read('./data/books.json')).map do |e|
@@ -139,9 +133,6 @@ class App
   end
 
   def save_people
-    # File.write('./data/people.json', JSON.generate(@people))
-    # File.write('./data/people.json', Marshal.dump(@people))
-
     arr = []
     @people.each do |e|
       arr.push(e.receive_item)
@@ -150,9 +141,6 @@ class App
   end
 
   def load_people
-    # JSON.parse(File.read('./data/people.json')) if File.exist?('./data/people.json')
-    # Marshal.load(File.read('./data/people.json')) if File.exist?('./data/people.json')
-
     return unless File.exist?('./data/people.json')
 
     JSON.parse(File.read('./data/people.json')).map do |e|
@@ -172,9 +160,6 @@ class App
   end
 
   def save_rentals
-    # File.write('./data/rentals.json', JSON.generate(@rentals))
-    # File.write('./data/rentals.json', Marshal.dump(@rentals))
-
     arr = []
     @rentals.each do |e|
       arr.push(e.receive_item)
@@ -183,9 +168,6 @@ class App
   end
 
   def load_rentals
-    # JSON.parse(File.read('./data/rentals.json')) if File.exist?('./data/rentals.json')
-    # Marshal.load(File.read('./data/rentals.json')) if File.exist?('./data/rentals.json')
-
     return unless File.exist?('./data/rentals.json')
 
     JSON.parse(File.read('./data/rentals.json')).map do |e|

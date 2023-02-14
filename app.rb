@@ -3,6 +3,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
+require 'json'
 
 class App
   def initialize
@@ -41,12 +42,13 @@ class App
     when '1'
       print 'Has parent permission? [Y/N]:'
       parent_permission = gets.chomp.upcase == 'Y'
-      classroom = Classroom.new('Unknown')
-      @people << Student.new(classroom, age, parent_permission, name)
+      classroom = nil
+      student = Student.new(classroom, age, name, parent_permission, nil)
+      @people.push(student)
     when '2'
       print 'Specialization:'
       specialization = gets.chomp
-      teacher = Teacher.new(age, name, specialization)
+      teacher = Teacher.new(age, name, specialization, nil)
       @people.push(teacher)
     end
     puts 'Person created successfully'
@@ -59,7 +61,7 @@ class App
     print 'Author:'
     author = gets.chomp
 
-    book = Book.new(title, author)
+    book = Book.new(title, author, nil)
     @books.push(book)
     puts 'Book created successfully'
   end
@@ -93,6 +95,90 @@ class App
 
     @rentals.each do |e|
       puts "Date: #{e.date}, Book: #{e.book.title} by #{e.book.author}" if e.person.id == id
+    end
+  end
+
+  # ------------------------ #
+  # Save and Load operations #
+  # ------------------------ #
+  def save_data
+    save_books
+    save_people
+    save_rentals
+  end
+
+  def load_data
+    @books = load_books || []
+    @people = load_people || []
+    @rentals = load_rentals || []
+  end
+
+  def save_books
+    arr = []
+    @books.each do |e|
+      arr.push(e.receive_item)
+    end
+    File.write('./data/books.json', JSON.generate(arr))
+  end
+
+  def load_books
+    return unless File.exist?('./data/books.json')
+
+    JSON.parse(File.read('./data/books.json')).map do |e|
+      id = e['id']
+      title = e['title']
+      author = e['author']
+      Book.new(title, author, id)
+    end
+  end
+
+  def save_people
+    arr = []
+    @people.each do |e|
+      arr.push(e.receive_item)
+    end
+    File.write('./data/people.json', JSON.generate(arr))
+  end
+
+  def load_people
+    return unless File.exist?('./data/people.json')
+
+    JSON.parse(File.read('./data/people.json')).map do |e|
+      id = e['id'].to_i
+      people_class = e['class']
+      name = e['name']
+      age = e['age']
+      if people_class == 'student'
+        classroom = e['classroom']
+        parent_permission = e['parent_permission']
+        Student.new(classroom, age, name, parent_permission, id)
+      else
+        specialization = e['specialization']
+        Teacher.new(age, name, specialization, id)
+      end
+    end
+  end
+
+  def save_rentals
+    arr = []
+    @rentals.each do |e|
+      arr.push(e.receive_item)
+    end
+    File.write('./data/rentals.json', JSON.generate(arr))
+  end
+
+  def load_rentals
+    return unless File.exist?('./data/rentals.json')
+
+    JSON.parse(File.read('./data/rentals.json')).map do |e|
+      date = e['date']
+      person_id = e['person_id'].to_i
+      book_id = e['book_id'].to_i
+
+      person = @people.find { |item| item.id == person_id }
+      book = @books.find { |item| item.id == book_id }
+
+      Rental.new(date, person, book)
     end
   end
 end

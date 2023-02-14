@@ -101,8 +101,8 @@ class App
   # Save and Load operations
   def save_data
     save_books
-    # save_people
-    # save_rentals
+    save_people
+    save_rentals
   end
 
   def load_data
@@ -112,29 +112,31 @@ class App
   end
 
   def save_books
-    str = JSON.generate(@books)
-
-    p str
-    File.write('./data/books.json', str)
+    # File.write('./data/books.json', JSON.generate(@books))
+    File.write('./data/books.json', Marshal.dump(@books))
   end
 
   def load_books
-    JSON.parse(File.read('./data/books.json')) if File.exist?('./data/books.json')
+    # JSON.parse(File.read('./data/books.json')) if File.exist?('./data/books.json')
+    Marshal.load(File.read('./data/books.json')) if File.exist?('./data/books.json')
   end
 
   def save_people
-    File.write('./data/people.json', JSON.generate(@people))
+    # File.write('./data/people.json', JSON.generate(@people))
+    File.write('./data/people.json', Marshal.dump(@people))
   end
 
   def load_people
-    JSON.parse(File.read('./data/people.json')) if File.exist?('./data/people.json')
+    # JSON.parse(File.read('./data/people.json')) if File.exist?('./data/people.json')
+    Marshal.load(File.read('./data/people.json')) if File.exist?('./data/people.json')
   end
 
   def save_rentals
-    File.write('./data/rentals.json', JSON.generate(@rentals))
+    # File.write('./data/rentals.json', JSON.generate(@rentals))
+    File.write('./data/rentals.json', Marshal.dump(@rentals))
   end
 
   def load_rentals
-    JSON.parse(File.read('./data/rentals.json')) if File.exist?('./data/rentals.json')
+    Marshal.load(File.read('./data/rentals.json')) if File.exist?('./data/rentals.json')
   end
 end

@@ -68,7 +68,7 @@ Imagine that you are the librarian of OOP University, and you need a tool to rec
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://www.onlinegdb.com/)
+- [Live Demo Link](https://school-library.onrender.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
